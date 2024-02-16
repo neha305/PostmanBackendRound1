@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -52,7 +53,12 @@ func main() {
 	fmt.Print("Enter day, meal and item in all caps: ")
 	fmt.Scanln(&day)
 	fmt.Scanln(&meal)
-	fmt.Scanln(&item)
+	reader := bufio.NewReader(os.Stdin)
+	item, err1 := reader.ReadString('\n')
+	if err1 != nil {
+		log.Fatal(err1)
+	}
+	item = strings.Replace(item, "\n", "", -1)
 	f3(f, day, meal, maxRow, sheetName, item)
 
 	//Calling Function 4
